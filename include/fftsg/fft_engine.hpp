@@ -62,21 +62,21 @@ namespace fftsg
     template <typename T>
     void FFTEngine<T>::fft(std::complex<T> *a)
     {
-        assert(static_cast<int>(a.size()) == m_frameSize);
+        assert(static_cast<int>(a->size()) == m_frameSize);
         cdft(m_frameSize * 2, -1, reinterpret_cast<T *>(a), &m_ip[0], &m_w[0]);
     }
 
     template <typename T>
     void FFTEngine<T>::fft(std::vector<T> & a)
     {
-        assert(static_cast<int>(a.size()) == m_frameSize * 2);
+        assert(static_cast<int>(a->size()) == m_frameSize * 2);
         cdft(m_frameSize * 2, -1, &a[0], &m_ip[0], &m_w[0]);
     }
 
     template <typename T>
     void FFTEngine<T>::fft(std::vector<std::complex<T>> & a)
     {
-        assert(static_cast<int>(a.size()) == m_frameSize);
+        assert(static_cast<int>(a->size()) == m_frameSize);
         cdft(m_frameSize * 2, -1, reinterpret_cast<T *>(&a[0]), &m_ip[0], &m_w[0]);
     }
 
@@ -101,7 +101,7 @@ namespace fftsg
     template <typename T>
     void FFTEngine<T>::ifft(std::vector<T> & a)
     {
-        assert(static_cast<int>(a.size()) == m_frameSize * 2);
+        assert(static_cast<int>(a->size()) == m_frameSize * 2);
         cdft(m_frameSize * 2, 1, &a[0], &m_ip[0], &m_w[0]);
         for (int i = 0; i < m_frameSize * 2; ++i) {
             a[i] /= m_frameSize;
@@ -111,7 +111,7 @@ namespace fftsg
     template <typename T>
     void FFTEngine<T>::ifft(std::vector<std::complex<T>> & a)
     {
-        assert(static_cast<int>(a.size()) == m_frameSize);
+        assert(static_cast<int>(a->size()) == m_frameSize);
         cdft(m_frameSize * 2, 1, reinterpret_cast<T *>(&a[0]), &m_ip[0], &m_w[0]);
         for (int i = 0; i < m_frameSize; ++i)
         {
